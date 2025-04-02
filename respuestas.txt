@@ -1,0 +1,5 @@
+1) 
+    f) No se puede observar el archivo tp2_1_2 pues el mismo fue commitiado unicamente
+    para la rama Opcion_2. Al ver el graph podemos observar la bifurcacion al crear el nuevo
+    branch y los diferentes desarrollos entre si. Una vez mergeadas ambas ramas, se puede
+    observar que todos los cambios que diferian entre ramas se unifican en la main.
