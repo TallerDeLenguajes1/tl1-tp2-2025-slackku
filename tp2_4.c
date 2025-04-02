@@ -3,18 +3,19 @@
 #include <time.h>
 #define CANTIDAD 5
 
-struct compu
+typedef struct compu
 {
     int velocidad;        // Velocidad de procesamiento en GHz (valor entre 1 y 3)
     int anio;             // Año de fabricación (valor entre 2015 y 2024)
     int cantidad_nucleos; // Cantidad de núcleos (valor entre 1 y 8)
     char *tipo_cpu;       // Tipo de procesador (apuntador a cadena de caracteres)
-} typedef PC;
+} PC;
 
 PC crearComputadora(char *tipos);
-void *cargarLista(PC *lista, char *tipos);
+void cargarLista(PC *lista, char *tipos);
 void listarPCs(PC *listarPCs);
-void mostrarMasVieja(PC *listarPCs);
+void mostrarMasVieja(PC *listaPC);
+void mostrarMasVeloz(PC *listaPC);
 int main()
 {
     char tipos[6][10] = {"Intel", "AMD", "Celeron", "Athlon", "Core", "Pentium"};
@@ -22,16 +23,15 @@ int main()
     pTipos = &tipos[0][0];
     PC *listaComputadoras = (PC *)malloc(CANTIDAD * sizeof(PC));
     srand(time(NULL));
-
     cargarLista(listaComputadoras, pTipos);
     listarPCs(listaComputadoras);
-
     mostrarMasVieja(listaComputadoras);
+    mostrarMasVeloz(listaComputadoras);
 
     return 0;
 }
 
-void *cargarLista(PC *lista, char *tipos)
+void cargarLista(PC *lista, char *tipos)
 {
     for (int i = 0; i < CANTIDAD; i++)
     {
@@ -93,6 +93,32 @@ void mostrarMasVieja(PC *listaPC)
     for (int j = 0; vieja->tipo_cpu[j] != '\0'; j++)
     {
         printf("%c", vieja->tipo_cpu[j]);
+    }
+    printf("\n");
+    printf("==========================\n");
+}
+
+void mostrarMasVeloz(PC *listaPC)
+{
+
+    PC *veloz = listaPC;
+    for (int i = 0; i < CANTIDAD; i++)
+    {
+        if (listaPC->velocidad > veloz->velocidad)
+        {
+            veloz = listaPC;
+        }
+        listaPC++;
+    }
+
+    printf("======= MAQUINA MAS VELOZ =======\n");
+    printf("Velocidad: %d\n", veloz->velocidad);
+    printf("Anio: %d\n", veloz->anio);
+    printf("Cantidad Nucleos: %d\n", veloz->cantidad_nucleos);
+    printf("Tipo CPU: ");
+    for (int j = 0; veloz->tipo_cpu[j] != '\0'; j++)
+    {
+        printf("%c", veloz->tipo_cpu[j]);
     }
     printf("\n");
     printf("==========================\n");
