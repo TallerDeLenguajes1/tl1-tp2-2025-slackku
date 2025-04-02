@@ -14,6 +14,7 @@ struct compu
 PC crearComputadora(char *tipos);
 void *cargarLista(PC *lista, char *tipos);
 void listarPCs(PC *listarPCs);
+void mostrarMasVieja(PC *listarPCs);
 int main()
 {
     char tipos[6][10] = {"Intel", "AMD", "Celeron", "Athlon", "Core", "Pentium"};
@@ -24,6 +25,8 @@ int main()
 
     cargarLista(listaComputadoras, pTipos);
     listarPCs(listaComputadoras);
+
+    mostrarMasVieja(listaComputadoras);
 
     return 0;
 }
@@ -45,12 +48,8 @@ PC crearComputadora(char *tipos)
     PC computadora;
     computadora.velocidad = rand() % (3 - 1 + 1) + 1;
     computadora.anio = rand() % (2024 - 2015 + 1) + 2015;
-
     computadora.cantidad_nucleos = rand() % (8 - 1 + 1) + 1;
     computadora.tipo_cpu = tipos;
-
-    tipos -= (10 * tipoRandom);
-
     return computadora;
 }
 
@@ -68,8 +67,33 @@ void listarPCs(PC *listaCompus)
             printf("%c", listaCompus->tipo_cpu[j]);
         }
         printf("\n");
-        printf("==========================");
+        printf("==========================\n");
 
         listaCompus++;
     }
+}
+
+void mostrarMasVieja(PC *listaPC)
+{
+    PC *vieja = listaPC;
+    for (int i = 0; i < CANTIDAD; i++)
+    {
+        if (listaPC->anio < vieja->anio)
+        {
+            vieja = listaPC;
+        }
+        listaPC++;
+    }
+
+    printf("======= MAQUINA MAS VIEJA =======\n");
+    printf("Velocidad: %d\n", vieja->velocidad);
+    printf("Anio: %d\n", vieja->anio);
+    printf("Cantidad Nucleos: %d\n", vieja->cantidad_nucleos);
+    printf("Tipo CPU: ");
+    for (int j = 0; vieja->tipo_cpu[j] != '\0'; j++)
+    {
+        printf("%c", vieja->tipo_cpu[j]);
+    }
+    printf("\n");
+    printf("==========================\n");
 }
