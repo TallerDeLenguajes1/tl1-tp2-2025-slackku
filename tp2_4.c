@@ -13,7 +13,7 @@ struct compu
 
 PC crearComputadora(char *tipos);
 void *cargarLista(PC *lista, char *tipos);
-// void listarPcs(PC *listarPCs);
+void listarPCs(PC *listarPCs);
 int main()
 {
     char tipos[6][10] = {"Intel", "AMD", "Celeron", "Athlon", "Core", "Pentium"};
@@ -23,6 +23,7 @@ int main()
     srand(time(NULL));
 
     cargarLista(listaComputadoras, pTipos);
+    listarPCs(listaComputadoras);
 
     return 0;
 }
@@ -44,7 +45,6 @@ PC crearComputadora(char *tipos)
     PC computadora;
     computadora.velocidad = rand() % (3 - 1 + 1) + 1;
     computadora.anio = rand() % (2024 - 2015 + 1) + 2015;
-    printf("%d\n", computadora.anio);
 
     computadora.cantidad_nucleos = rand() % (8 - 1 + 1) + 1;
     computadora.tipo_cpu = tipos;
@@ -54,17 +54,22 @@ PC crearComputadora(char *tipos)
     return computadora;
 }
 
-// void listarPCs(PC listaCompus[], int cantidad)
-// {
-//     for (int i = 0; i < cantidad; i++)
-//     {
-//         printf("Velocidad: %d\n", listaCompus[i].velocidad);
-//         printf("Anio: %d\n", listaCompus[i].anio);
-//         printf("Cantidad Nucleos: %d\n", listaCompus[i].cantidad_nucleos);
-//         // while (listaCompus[i].tipo_cpu != "\0")
-//         // {
-//         //     printf("%c", listaCompus[i].tipo_cpu);
-//         //     listaCompus[i].tipo_cpu++;
-//         // }
-//     }
-// }
+void listarPCs(PC *listaCompus)
+{
+    for (int i = 0; i < CANTIDAD; i++)
+    {
+        printf("======= MAQUINA %d =======\n", i + 1);
+        printf("Velocidad: %d\n", listaCompus->velocidad);
+        printf("Anio: %d\n", listaCompus->anio);
+        printf("Cantidad Nucleos: %d\n", listaCompus->cantidad_nucleos);
+        printf("Tipo CPU: ");
+        for (int j = 0; listaCompus->tipo_cpu[j] != '\0'; j++)
+        {
+            printf("%c", listaCompus->tipo_cpu[j]);
+        }
+        printf("\n");
+        printf("==========================");
+
+        listaCompus++;
+    }
+}
