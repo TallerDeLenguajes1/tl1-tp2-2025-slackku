@@ -43,7 +43,7 @@ void *cargarLista(PC *lista, char *tipos)
 
 PC crearComputadora(char *tipos)
 {
-    int tipoRandom = rand() % (6 - 0 + 1) + 0;
+    int tipoRandom = rand() % (5 - 0 + 1) + 0;
     tipos += (10 * tipoRandom);
     PC computadora;
     computadora.velocidad = rand() % (3 - 1 + 1) + 1;
